@@ -66,13 +66,23 @@ async def main():
     # Récupérer les régions
     regions = await client.region.get()
 
+    print(regions)
+
     # Récupérer les restaurants
     restaurants = await client.ru.get(regionID=23)
+
+    print(restaurants)
 
     # Récupérer les menus
     menus = await client.menu.get(regionID=23, ruID=1)
 
-asyncio.run(main())
+    print(menus)
+
+    await session.close()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 # 📃 • Crédits
