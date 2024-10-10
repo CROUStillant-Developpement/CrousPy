@@ -114,6 +114,9 @@ class Infos:
             else:
                 newHoraires.append(h)
         self.__horaires = newHoraires
+        
+        if [] in self.__horaires:
+            self.__horaires.remove([])
 
         self.__pmr = True if "Accessible aux personnes à mobilité réduite" in data else False
         
@@ -151,7 +154,10 @@ class Infos:
             pass
 
         if self.__paiements and (self.__paiements[1] == "" or self.__paiements[1] == " "):
-            self.__paiements = [self.__paiements[0], ""]
+            self.__paiements = [self.__paiements[0]]
+            
+        if [] in self.__paiements:
+            self.__paiements.remove([])
 
 
     @property
