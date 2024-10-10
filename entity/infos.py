@@ -117,6 +117,12 @@ class Infos:
         
         if [] in self.__horaires:
             self.__horaires.remove([])
+            
+        if "" in self.__horaires:
+            self.__horaires.remove("")
+            
+        for i in range(len(self.__horaires)):
+            self.__horaires[i] = self.__horaires[i].strip()
 
         self.__pmr = True if "Accessible aux personnes à mobilité réduite" in data else False
         
@@ -132,6 +138,9 @@ class Infos:
 
         if self.__acces and self.__acces[0] == "---":
             self.__acces = None
+            
+        if "" in self.__acces:
+            self.__acces.remove("")
 
         try:
             self.__pratique = data.split("<h2>Pratique</h2>")[1].split("<h2>Paiements possibles</h2>")[0]
