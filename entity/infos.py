@@ -9,19 +9,19 @@ class InfosData(TypedDict):
     
     :param data: Les données du RU.
     :type data: str
-    
+
     :param horaires: Les horaires.
     :type horaires: list
-    
+
     :param pmr: Si le RU est accessible aux personnes à mobilité réduite.
     :type pmr: bool
-    
+
     :param acces: Les moyens d'accès.
     :type acces: list
-    
+
     :param pratique: Les informations pratiques.
     :type pratique: str
-    
+
     :param paiements: Les moyens de paiement.
     :type paiements: list
     """
@@ -39,22 +39,22 @@ class Infos:
     
     :param data: Les données du RU.
     :type data: str
-    
+
     :ivar data: Les données du RU.
     :vartype data: str
-    
+
     :ivar horaires: Les horaires.
     :vartype horaires: list
-    
+
     :ivar pmr: Si le RU est accessible aux personnes à mobilité réduite.
     :vartype pmr: bool
-    
+
     :ivar acces: Les moyens d'accès.
     :vartype acces: list
-    
+
     :ivar pratique: Les informations pratiques.
     :vartype pratique: str
-    
+
     :ivar paiements: Les moyens de paiement.
     :vartype paiements: list
     """
@@ -85,7 +85,7 @@ class Infos:
 
         if "Pratique" in self.__horaires[0]:
             self.__horaires = [self.__horaires[0].split("<h2>Pratique</h2>")[0], []]
-        
+
         if "Pratique" in self.__horaires[1]:
             self.__horaires[1] = self.__horaires[1].split("<h2>Pratique</h2>")[0].strip()
 
@@ -114,18 +114,18 @@ class Infos:
             else:
                 newHoraires.append(h)
         self.__horaires = newHoraires
-        
+
         if [] in self.__horaires:
             self.__horaires.remove([])
-            
+
         if "" in self.__horaires:
             self.__horaires.remove("")
-            
+
         for i in range(len(self.__horaires)):
             self.__horaires[i] = self.__horaires[i].strip()
 
         self.__pmr = True if "Accessible aux personnes à mobilité réduite" in data else False
-        
+
         try:
             self.__acces = data.split("<h2>Moyen d'accès</h2>")[1]
             
@@ -136,11 +136,12 @@ class Infos:
         except:
             self.__acces = None
 
-        if self.__acces and self.__acces[0] == "---":
-            self.__acces = None
-            
-        if "" in self.__acces:
-            self.__acces.remove("")
+        if self.__acces:
+            if "" in self.__acces:
+                self.__acces.remove("")
+
+            if self.__acces[0] == "---":
+                self.__acces = None
 
         try:
             self.__pratique = data.split("<h2>Pratique</h2>")[1].split("<h2>Paiements possibles</h2>")[0]
@@ -172,27 +173,27 @@ class Infos:
     @property
     def data(self) -> str:
         return self.__data
-    
+
     @property
     def horaires(self) -> list:
         return self.__horaires
-    
+
     @property
     def pmr(self) -> bool:
         return self.__pmr
-    
+
     @property
     def acces(self) -> list:
         return self.__acces
-    
+
     @property
     def pratique(self) -> str:
         return self.__pratique
-    
+
     @property
     def paiements(self) -> list:
         return self.__paiements
-    
+
 
     def __repr__(self) -> str:
         return f"<Infos horaires={self.horaires} pmr={self.pmr} acces={self.acces} pratique={self.pratique} paiements={self.paiements}>"
