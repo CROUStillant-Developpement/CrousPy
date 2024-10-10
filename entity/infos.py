@@ -117,6 +117,9 @@ class Infos:
 
         if self.__horaires:
             self.__horaires = [h.strip() for h in self.__horaires if h]
+            
+        if self.__horaires == []:
+            self.__horaires = None
 
 
         self.__pmr = True if "Accessible aux personnes à mobilité réduite" in data else False
@@ -137,6 +140,9 @@ class Infos:
 
         if self.__acces:
             self.__acces = [a.strip() for a in self.__acces if a]
+            
+        if self.__acces == []:
+            self.__acces = None
 
 
         try:
@@ -165,6 +171,9 @@ class Infos:
 
         if self.__paiements:
             self.__paiements = [p.strip() for p in self.__paiements if p]
+            
+        if self.__paiements == []:
+            self.__paiements = None
 
 
     @property
