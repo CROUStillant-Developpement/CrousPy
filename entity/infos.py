@@ -62,7 +62,7 @@ class Infos:
         self.__data: dict = data
 
         if data == '  <img src=\"\" class=\"image-batiment\"> ':
-            self.__horaires = ["", []]
+            self.__horaires = []
             self.__pmr = None
             self.__acces = None
             self.__pratique = None
@@ -101,7 +101,7 @@ class Infos:
 
         matches = re.finditer(r"\d{4,}", self.__horaires[0])
 
-        for matchNum, match in enumerate(matches, start=1):
+        for _, match in enumerate(matches, start=1):
             self.__horaires[0] = self.__horaires[0].replace(match.group(), f"{match.group()[0:2]}h{match.group()[2:4]}")
 
         if isinstance(self.__horaires[1], str) and self.__horaires[1].startswith("- "):
@@ -114,17 +114,12 @@ class Infos:
             else:
                 newHoraires.append(h)
         self.__horaires = newHoraires
+        
+        self.__horaires = [h.strip() for h in self.__horaires if h]
 
-        if [] in self.__horaires:
-            self.__horaires.remove([])
-
-        if "" in self.__horaires:
-            self.__horaires.remove("")
-
-        for i in range(len(self.__horaires)):
-            self.__horaires[i] = self.__horaires[i].strip()
 
         self.__pmr = True if "Accessible aux personnes à mobilité réduite" in data else False
+
 
         try:
             self.__acces = data.split("<h2>Moyen d'accès</h2>")[1]
@@ -136,23 +131,23 @@ class Infos:
         except:
             self.__acces = None
 
-        if self.__acces:
-            if "" in self.__acces:
-                self.__acces.remove("")
+        if self.__acces and self.__acces[0] == "---":
+            self.__acces = None
+            
+        self.__acces = [a.strip() for a in self.__acces if a]
 
-            if self.__acces[0] == "---":
-                self.__acces = None
 
         try:
             self.__pratique = data.split("<h2>Pratique</h2>")[1].split("<h2>Paiements possibles</h2>")[0]
         except:
             self.__pratique = None
 
+
         try:
             self.__paiements = data.split("<h2>Paiements possibles</h2>")[1].replace("especes", "Espèces").split("</p>")[0].split("<br/>")[0:2]
         except:
             self.__paiements = []
-    
+
         try:
             self.__paiements[0] = self.__paiements[0].split("'/>")[1].split("<br/>")[0].strip()
         except:
@@ -166,8 +161,7 @@ class Infos:
         if self.__paiements and (self.__paiements[1] == "" or self.__paiements[1] == " "):
             self.__paiements = [self.__paiements[0]]
             
-        if [] in self.__paiements:
-            self.__paiements.remove([])
+        self.__paiements = [p.strip() for p in self.__paiements if p]
 
 
     @property
