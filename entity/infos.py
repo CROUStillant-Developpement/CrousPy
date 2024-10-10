@@ -114,8 +114,9 @@ class Infos:
             else:
                 newHoraires.append(h)
         self.__horaires = newHoraires
-        
-        self.__horaires = [h.strip() for h in self.__horaires if h]
+
+        if self.__horaires:
+            self.__horaires = [h.strip() for h in self.__horaires if h]
 
 
         self.__pmr = True if "Accessible aux personnes à mobilité réduite" in data else False
@@ -133,8 +134,9 @@ class Infos:
 
         if self.__acces and self.__acces[0] == "---":
             self.__acces = None
-            
-        self.__acces = [a.strip() for a in self.__acces if a]
+
+        if self.__acces:
+            self.__acces = [a.strip() for a in self.__acces if a]
 
 
         try:
@@ -160,8 +162,9 @@ class Infos:
 
         if self.__paiements and (self.__paiements[1] == "" or self.__paiements[1] == " "):
             self.__paiements = [self.__paiements[0]]
-            
-        self.__paiements = [p.strip() for p in self.__paiements if p]
+
+        if self.__paiements:
+            self.__paiements = [p.strip() for p in self.__paiements if p]
 
 
     @property
