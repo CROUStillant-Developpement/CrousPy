@@ -56,7 +56,7 @@ class Region:
 
     @property
     def name(self) -> str:
-        return str(self.__data.get("name")).capitalize()
+        return str(self.__data.get("name")).title()
     
 
     def __repr__(self) -> str:
