@@ -10,6 +10,8 @@ CROUStillant est un projet qui a pour but de fournir les menus des restaurants u
 
 - [🚀 • Présentation](#--présentation)
 - [⚙️ • Installation](#--installation)
+- [💻 • Développement](#--développement)
+- [📄 • Utilisation](#--utilisation)
 - [📃 • Crédits](#--crédits)
 - [📝 • License](#--license)
 
@@ -19,7 +21,14 @@ Ce dépôt contient le code source d'une librairie interne de CROUStillant en Py
 
 # ⚙️ • Installation
 
-La librairie n'est pas encore disponible sur PyPi, il faut donc l'installer manuellement.
+La librairie n'est pas encore disponible sur PyPi, il faut donc l'installer manuellement en exécutant la commande suivante :
+```
+pip install git+https://github.com/CROUStillant-Developpement/CrousPy
+```
+
+# 💻 • Développement
+
+Pour installer la librairie en mode de développement, exécutez les commandes suivantes :
 
 1. Cloner le dépôt
 ```bash
