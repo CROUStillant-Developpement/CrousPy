@@ -1,6 +1,6 @@
 __title__ = "CrousPy"
 __author__ = "CROUStillant Développement"
-__version__ = "2.0.1"
+__version__ = "2.0.2"
 __description__ = "A Python wrapper for the CROUS API."
 
 __headers__ = {

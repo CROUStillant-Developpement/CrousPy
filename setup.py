@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as readme:
     
 setup(
     name="CrousPy",
-    version="2.0.1",
+    version="2.0.2",
     license="Apache-2.0",
     author="CROUStillant Développement",
     keywords="CROUS API Python CROUStillant",
