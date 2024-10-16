@@ -43,7 +43,7 @@ class Category:
     
     @property
     def dishes(self) -> list[Dish]:
-        return [Dish(dish) for dish in self.__data.get("dishes")]
+        return [Dish(dish) for dish in self.__data.get("dishes") if dish.get("name").strip() != ""]
 
 
     def __iter__(self):
