@@ -24,4 +24,9 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.11",
+    install_requires=[
+        "aiohttp>=3.9.5",
+        "async-timeout>=4.0.3",
+        "pytz>=2024.2",
+    ]
 )
