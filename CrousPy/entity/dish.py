@@ -37,6 +37,12 @@ class Dish:
             name = name[1:].strip()
         elif name.startswith("*") or len(name) == 1 or name == "ou":
             name = ""
+            
+        if name.endswith(".") or name.endswith(","):
+            name = name[:-1].strip()
+            
+        if "  " in name:
+            name = name.replace("  ", " ")
 
         if not name.lower().startswith("ou"):
             name = name.capitalize()
