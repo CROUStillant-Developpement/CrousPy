@@ -7,7 +7,7 @@ class Contact:
     
     :param data: Les données de contact.
     :type data: str
-    
+
     :ivar data: Les données de contact.
     :vartype data: str
 
@@ -33,7 +33,7 @@ class Contact:
             self.__phone = self.__data.split("<b>T&#233;l&#233;phone</b> : ")[1].split("<br/>")[0].replace(" ", ".").replace("</p>", "")
             if "pas.de.telephone" in self.__phone.lower():
                 raise Exception("Pas de téléphone")
-            
+
             if self.__phone.startswith("."):
                 self.__phone = self.__phone[1:]
 
@@ -61,23 +61,23 @@ class Contact:
     @property
     def data(self) -> str:
         return self.__data
-    
+
     @property
     def name(self) -> str:
         return self.__name
-    
+
     @property
     def address(self) -> str:
-        return self.__address
-    
+        return self.__address.strip() if self.__address.strip() else None
+
     @property
     def phone(self) -> str:
         return self.__phone
-    
+
     @property
     def email(self) -> str:
         return self.__email
-    
+
 
     def __repr__(self) -> str:
         return f"<Contact name={self.name} address={self.address} phone={self.phone} email={self.email}>"
