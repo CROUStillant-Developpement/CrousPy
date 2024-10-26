@@ -187,8 +187,6 @@ class RU:
         self.__image_url = self.__data.get("image_url")
         if self.__image_url == "https://admin-v2.crous-mobile.fr/media/":
             self.__image_url = None
-        else:
-            self.__image_url = self.__image_url.replace("//", "")
 
 
     @property
