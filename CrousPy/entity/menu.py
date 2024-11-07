@@ -75,10 +75,6 @@ class Menu:
         return [Meal(meal) for meal in self.__data.get("meal")]
 
 
-    def __repr__(self) -> str:
-        return f"<Menu id={self.id} restaurant_id={self.restaurant_id} date={self.date}>"
-
-
     def __iter__(self):
         self.index = -1
         return self
