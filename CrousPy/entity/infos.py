@@ -88,7 +88,7 @@ class Infos:
                     self.__horaires = self.__horaires.replace("<br/><br/>", "<br/>")
 
                 if "<br/>" in self.__horaires:
-                    self.__horaires = self.__horaires.strip().split("<br/>")
+                    self.__horaires = self.__horaires.replace("<p>", "").replace("</p>", "").strip().split("<br/>")
                 else:
                     self.__horaires = [self.__horaires.replace("<p>", "").replace("</p>", "").strip()]
 
