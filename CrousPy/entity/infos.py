@@ -83,7 +83,14 @@ class Infos:
         elif "Paiements possibles" in self.__horaires:
             self.__horaires = self.__horaires.split("<h2>Paiements possibles</h2>")[0].replace("<p>", "").replace("</p>", "").strip().split("<br/>")
         else:
-            self.__horaires = [self.__horaires.replace("<p>", "").replace("</p>", "").strip()]
+            if isinstance(self.__horaires, str):
+                if "<br/><br/>" in self.__horaires:
+                    self.__horaires = self.__horaires.replace("<br/><br/>", "<br/>")
+
+                if "<br/>" in self.__horaires:
+                    self.__horaires = self.__horaires.strip().split("<br/>")
+                else:
+                    self.__horaires = [self.__horaires.replace("<p>", "").replace("</p>", "").strip()]
 
         self.__horaires.append([])
 
