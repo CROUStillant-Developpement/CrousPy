@@ -74,6 +74,10 @@ class Infos:
         else:
             self.__horaires = ""
 
+        for item in ["<b>", "<img", "<iframe"]:
+            if item in self.__horaires:
+                self.__horaires = self.__horaires.split(item)[0]
+
         if "Moyen d'accès" in self.__horaires:
             self.__horaires = self.__horaires.split("<h2>Moyen d'accès</h2>")[0].replace("<p>", "").replace("</p>", "").strip().split("<br/>")
         elif "Paiements possibles" in self.__horaires:
