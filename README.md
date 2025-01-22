@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/CROUStillant-Developpement/CROUStillantAssets/main/logo.png" alt="CROUStillant Logo"/>
+<img src="https://croustillant.bayfield.dev/logo.png" alt="CROUStillant Logo"/>
   
 # CROUStillant
 CROUStillant est un projet qui a pour but de fournir les menus des restaurants universitaires en France et en Outre-Mer. 
@@ -103,7 +103,7 @@ if __name__ == "__main__":
 CROUStillant sous licence [Apache 2.0](LICENSE).
 
 ```
-Copyright 2024 CROUStillant Développement
+Copyright 2024 - 2025 CROUStillant Développement
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
