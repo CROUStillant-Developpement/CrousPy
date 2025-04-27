@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://croustillant.bayfield.dev/logo.png" alt="CROUStillant Logo"/>
+<img src="https://croustillant.menu/logo.png" alt="CROUStillant Logo"/>
   
 # CROUStillant
 CROUStillant est un projet qui a pour but de fournir les menus des restaurants universitaires en France et en Outre-Mer. 
