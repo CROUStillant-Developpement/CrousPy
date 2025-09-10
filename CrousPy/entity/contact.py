@@ -81,11 +81,11 @@ class Contact:
 
     @property
     def phone(self) -> str:
-        return self.__phone.strip() if self.__phone.strip() else None
+        return self.__phone.strip() if self.__phone else None
 
     @property
     def email(self) -> str:
-        return self.__email.strip() if self.__email.strip() else None
+        return self.__email.strip() if self.__email else None
 
     def __repr__(self) -> str:
         return f"<Contact name={self.name} address={self.address} phone={self.phone} email={self.email}>"
