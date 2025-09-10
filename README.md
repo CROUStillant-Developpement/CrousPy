@@ -9,7 +9,6 @@ CROUStillant est un projet qui a pour but de fournir les menus des restaurants u
 # 📖 • Sommaire
 
 - [🚀 • Présentation](#--présentation)
-- [⚙️ • Installation](#--installation)
 - [💻 • Développement](#--développement)
 - [📄 • Utilisation](#--utilisation)
 - [📃 • Crédits](#--crédits)
