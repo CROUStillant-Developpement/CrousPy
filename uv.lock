@@ -53,10 +53,6 @@ dependencies = [
     { name = "aiohttp" },
     { name = "async-timeout" },
     { name = "pytz" },
-]
-
-[package.optional-dependencies]
-dev = [
     { name = "ruff" },
 ]
 
@@ -65,9 +61,8 @@ requires-dist = [
     { name = "aiohttp", specifier = "==3.9.5" },
     { name = "async-timeout", specifier = "==4.0.3" },
     { name = "pytz", specifier = "==2024.2" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
+    { name = "ruff", specifier = ">=0.12.12" },
 ]
-provides-extras = ["dev"]
 
 [[package]]
 name = "frozenlist"

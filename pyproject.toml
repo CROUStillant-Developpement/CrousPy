@@ -10,6 +10,7 @@ dependencies = [
     "aiohttp==3.9.5",
     "async-timeout==4.0.3",
     "pytz==2024.2",
+    "ruff>=0.12.12",
 ]
 
 [project.urls]
@@ -19,8 +20,3 @@ repository = "https://github.com/CROUStillant-Developpement/CrousPy"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[project.optional-dependencies]
-dev = [
-    "ruff>=0.5",
-]
