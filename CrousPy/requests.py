@@ -5,7 +5,18 @@ from .entity.collection.menuCollection import Menus
 from .entity.region import Region
 from .entity.ru import RU
 from .entity.menu import Menu
-from .exceptions import *
+from .exceptions import (
+    CrousAPIError,
+    RedirectError,
+    BadRequestError,
+    ForbiddenError,
+    RegionIntrouvable,
+    RestaurantIntrouvable,
+    MenuIntrouvable,
+    ConflictWithServer,
+    TooEarlyError,
+    InternalServerError,
+)
 from aiohttp import ClientSession, ContentTypeError
 
 
@@ -13,11 +24,10 @@ class Crous:
     def __init__(self, session: ClientSession):
         self.session = session
 
-
     async def getRegions(self) -> Regions:
         """
         Récupère les régions disponibles.
-        
+
         :return: Les régions disponibles.
         :rtype: Regions
 
@@ -31,7 +41,9 @@ class Crous:
         :raises InternalServerError: Erreur interne du serveur !
         """
         try:
-            async with self.session.get(f"{__baseURL__}/regions/", headers=__headers__, ssl=False) as response:
+            async with self.session.get(
+                f"{__baseURL__}/regions/", headers=__headers__, ssl=False
+            ) as response:
                 json: list[dict] = await response.json()
                 if response.status != 200:
                     if response.status == 302:
@@ -55,14 +67,13 @@ class Crous:
         except ContentTypeError:
             raise CrousAPIError
 
-
     async def getRegionByID(self, regionID: int) -> Region:
         """
         Récupère une région par son ID.
-        
+
         :param regionID: L'ID de la région.
         :type regionID: int
-        
+
         :return: La région.
         :rtype: Region
 
@@ -76,7 +87,9 @@ class Crous:
         :raises InternalServerError: Erreur interne du serveur !
         """
         try:
-            async with self.session.get(f"{__baseURL__}/regions/", headers=__headers__, ssl=False) as response:
+            async with self.session.get(
+                f"{__baseURL__}/regions/", headers=__headers__, ssl=False
+            ) as response:
                 json: list[dict] = await response.json()
                 if response.status != 200:
                     if response.status == 302:
@@ -103,14 +116,13 @@ class Crous:
         except ContentTypeError:
             raise CrousAPIError
 
-
     async def getRUs(self, regionID: int) -> RUs:
         """
         Récupère les RUs d'une région.
-        
+
         :param regionID: L'ID de la région.
         :type regionID: int
-        
+
         :return: Les RUs de la région.
         :rtype: RUs
 
@@ -124,7 +136,11 @@ class Crous:
         :raises InternalServerError: Erreur interne du serveur !
         """
         try:
-            async with self.session.get(f"{__baseURL__}/regions/{regionID}/restaurants/", headers=__headers__, ssl=False) as response:
+            async with self.session.get(
+                f"{__baseURL__}/regions/{regionID}/restaurants/",
+                headers=__headers__,
+                ssl=False,
+            ) as response:
                 json: list[dict] = await response.json()
                 if response.status != 200:
                     if response.status == 302:
@@ -147,18 +163,17 @@ class Crous:
                     return RUs(json)
         except ContentTypeError:
             raise CrousAPIError
-        
-    
+
     async def getRuByID(self, regionID: int, rid: int) -> RU:
         """
         Récupère un RU par son ID.
-        
+
         :param regionID: L'ID de la région.
         :type regionID: int
-        
+
         :param rid: L'ID du RU.
         :type rid: int
-        
+
         :return: Le RU.
         :rtype: RU
 
@@ -172,7 +187,11 @@ class Crous:
         :raises InternalServerError: Erreur interne du serveur !
         """
         try:
-            async with self.session.get(f"{__baseURL__}/regions/{regionID}/restaurants/", headers=__headers__, ssl=False) as response:
+            async with self.session.get(
+                f"{__baseURL__}/regions/{regionID}/restaurants/",
+                headers=__headers__,
+                ssl=False,
+            ) as response:
                 json: list[dict] = await response.json()
                 if response.status != 200:
                     if response.status == 302:
@@ -198,18 +217,17 @@ class Crous:
                     raise RestaurantIntrouvable()
         except ContentTypeError:
             raise CrousAPIError
-        
 
     async def getMenus(self, regionID: int, rid: int) -> Menus:
         """
         Récupère les menus d'un RU.
-        
+
         :param regionID: L'ID de la région.
         :type regionID: int
-        
+
         :param rid: L'ID du RU.
         :type rid: int
-        
+
         :return: Les menus du RU.
         :rtype: Menus
 
@@ -222,7 +240,11 @@ class Crous:
         :raises InternalServerError: Erreur interne du serveur !
         """
         try:
-            async with self.session.get(f"{__baseURL__}/regions/{regionID}/restaurants/{rid}/menus/", headers=__headers__, ssl=False) as response:
+            async with self.session.get(
+                f"{__baseURL__}/regions/{regionID}/restaurants/{rid}/menus/",
+                headers=__headers__,
+                ssl=False,
+            ) as response:
                 json: list[dict] = await response.json()
                 if response.status != 200:
                     if response.status == 302:
@@ -245,21 +267,20 @@ class Crous:
                     return Menus(json)
         except ContentTypeError:
             raise CrousAPIError
-        
 
     async def getMenuByDate(self, regionID: int, rid: int, date: str) -> Menu:
         """
         Récupère un menu par sa date.
-        
+
         :param regionID: L'ID de la région.
         :type regionID: int
-        
+
         :param rid: L'ID du RU.
         :type rid: int
-        
+
         :param date: La date.
         :type date: str
-        
+
         :return: Le menu.
         :rtype: Menu
 
@@ -273,7 +294,11 @@ class Crous:
         :raises InternalServerError: Erreur interne du serveur !
         """
         try:
-            async with self.session.get(f"{__baseURL__}/regions/{regionID}/restaurants/{rid}/menus/", headers=__headers__, ssl=False) as response:
+            async with self.session.get(
+                f"{__baseURL__}/regions/{regionID}/restaurants/{rid}/menus/",
+                headers=__headers__,
+                ssl=False,
+            ) as response:
                 json: list[dict] = await response.json()
                 if response.status != 200:
                     if response.status == 302:

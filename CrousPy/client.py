@@ -18,22 +18,23 @@ timeout_time = 30
 class Crous:
     """
     Représente le client Crous.
-    
+
     :param session: La session aiohttp.
     :type session: ClientSession
-    
+
     :ivar region: Les régions.
     :vartype region: Region
-    
+
     :ivar ru: Les restaurants universitaires.
     :vartype ru: RU
-    
+
     :ivar menu: Les menus.
     :vartype menu: Menu
-    
+
     :raises CrousAPIError: Une erreur est survenue lors de la requête.
     :raises asyncio.TimeoutError: La requête a mis trop de temps à répondre.
     """
+
     def __init__(self, session: ClientSession):
         self.client = CrousRequests(session)
 
@@ -45,7 +46,7 @@ class Crous:
 class Region:
     """
     Représente les régions.
-    
+
     :param client: Le client Crous.
     :type client: CrousRequests
 
@@ -55,9 +56,9 @@ class Region:
     :raises CrousAPIError: Une erreur est survenue lors de la requête.
     :raises asyncio.TimeoutError: La requête a mis trop de temps à répondre.
     """
+
     def __init__(self, client: CrousRequests):
         self.client = client
-        
 
     async def get(self) -> Regions:
         try:
@@ -65,7 +66,6 @@ class Region:
                 return await self.client.getRegions()
         except asyncio.TimeoutError:
             raise CrousAPIError
-    
 
     async def getById(self, regionID: int) -> ObjRegion:
         try:
@@ -78,19 +78,19 @@ class Region:
 class RU:
     """
     Représente les restaurants universitaires.
-    
+
     :param client: Le client Crous.
     :type client: CrousRequests
-    
+
     :method get: Récupère les restaurants universitaires.
     :method getById: Récupère un restaurant universitaire par son ID.
 
     :raises CrousAPIError: Une erreur est survenue lors de la requête.
     :raises asyncio.TimeoutError: La requête a mis trop de temps à répondre.
     """
+
     def __init__(self, client: CrousRequests):
         self.client = client
-        
 
     async def get(self, regionID: int) -> RUs:
         try:
@@ -98,7 +98,6 @@ class RU:
                 return await self.client.getRUs(regionID)
         except asyncio.TimeoutError:
             raise CrousAPIError
-        
 
     async def getById(self, regionID: int, rid: int) -> ObjRU:
         try:
@@ -111,19 +110,19 @@ class RU:
 class Menu:
     """
     Représente les menus.
-    
+
     :param client: Le client Crous.
     :type client: CrousRequests
-    
+
     :method get: Récupère les menus.
     :method getByName: Récupère un menu par son nom.
-    
+
     :raises CrousAPIError: Une erreur est survenue lors de la requête.
     :raises asyncio.TimeoutError: La requête a mis trop de temps à répondre.
     """
+
     def __init__(self, client: CrousRequests):
         self.client = client
-        
 
     async def get(self, regionID: int, rid: str) -> Menus:
         try:
@@ -131,7 +130,6 @@ class Menu:
                 return await self.client.getMenus(regionID, rid)
         except asyncio.TimeoutError:
             raise CrousAPIError
-        
 
     async def getByDate(self, regionID: int, rid: str, date: str) -> ObjMenu:
         try:

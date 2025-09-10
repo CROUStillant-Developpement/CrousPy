@@ -6,7 +6,7 @@ from typing import TypedDict
 class InfosData(TypedDict):
     """
     Représente les données d'un RU.
-    
+
     :param data: Les données du RU.
     :type data: str
 
@@ -25,6 +25,7 @@ class InfosData(TypedDict):
     :param paiements: Les moyens de paiement.
     :type paiements: list
     """
+
     data: str
     horaires: list
     pmr: bool
@@ -36,7 +37,7 @@ class InfosData(TypedDict):
 class Infos:
     """
     Représente les informations d'un RU.
-    
+
     :param data: Les données du RU.
     :type data: str
 
@@ -58,10 +59,11 @@ class Infos:
     :ivar paiements: Les moyens de paiement.
     :vartype paiements: list
     """
+
     def __init__(self, data: InfosData) -> None:
         self.__data: dict = data
 
-        if data == '  <img src=\"\" class=\"image-batiment\"> ':
+        if data == '  <img src="" class="image-batiment"> ':
             self.__horaires = []
             self.__pmr = None
             self.__acces = None
@@ -79,18 +81,37 @@ class Infos:
                 self.__horaires = self.__horaires.split(item)[0]
 
         if "Moyen d'accès" in self.__horaires:
-            self.__horaires = self.__horaires.split("<h2>Moyen d'accès</h2>")[0].replace("<p>", "").replace("</p>", "").strip().split("<br/>")
+            self.__horaires = (
+                self.__horaires.split("<h2>Moyen d'accès</h2>")[0]
+                .replace("<p>", "")
+                .replace("</p>", "")
+                .strip()
+                .split("<br/>")
+            )
         elif "Paiements possibles" in self.__horaires:
-            self.__horaires = self.__horaires.split("<h2>Paiements possibles</h2>")[0].replace("<p>", "").replace("</p>", "").strip().split("<br/>")
+            self.__horaires = (
+                self.__horaires.split("<h2>Paiements possibles</h2>")[0]
+                .replace("<p>", "")
+                .replace("</p>", "")
+                .strip()
+                .split("<br/>")
+            )
         else:
             if isinstance(self.__horaires, str):
                 if "<br/><br/>" in self.__horaires:
                     self.__horaires = self.__horaires.replace("<br/><br/>", "<br/>")
 
                 if "<br/>" in self.__horaires:
-                    self.__horaires = self.__horaires.replace("<p>", "").replace("</p>", "").strip().split("<br/>")
+                    self.__horaires = (
+                        self.__horaires.replace("<p>", "")
+                        .replace("</p>", "")
+                        .strip()
+                        .split("<br/>")
+                    )
                 else:
-                    self.__horaires = [self.__horaires.replace("<p>", "").replace("</p>", "").strip()]
+                    self.__horaires = [
+                        self.__horaires.replace("<p>", "").replace("</p>", "").strip()
+                    ]
 
         self.__horaires.append([])
 
@@ -98,7 +119,9 @@ class Infos:
             self.__horaires = [self.__horaires[0].split("<h2>Pratique</h2>")[0], []]
 
         if "Pratique" in self.__horaires[1]:
-            self.__horaires[1] = self.__horaires[1].split("<h2>Pratique</h2>")[0].strip()
+            self.__horaires[1] = (
+                self.__horaires[1].split("<h2>Pratique</h2>")[0].strip()
+            )
 
         if self.__horaires[0].startswith("- "):
             self.__horaires[0] = self.__horaires[0][2:]
@@ -109,11 +132,12 @@ class Infos:
         if self.__horaires[1] == "":
             self.__horaires = [self.__horaires[0], []]
 
-
         matches = re.finditer(r"\d{4,}", self.__horaires[0])
 
         for _, match in enumerate(matches, start=1):
-            self.__horaires[0] = self.__horaires[0].replace(match.group(), f"{match.group()[0:2]}h{match.group()[2:4]}")
+            self.__horaires[0] = self.__horaires[0].replace(
+                match.group(), f"{match.group()[0:2]}h{match.group()[2:4]}"
+            )
 
         if isinstance(self.__horaires[1], str) and self.__horaires[1].startswith("- "):
             self.__horaires[1] = self.__horaires[1][2:]
@@ -128,22 +152,38 @@ class Infos:
 
         if self.__horaires:
             self.__horaires = [h.strip() for h in self.__horaires if h]
-            
+
         if self.__horaires == []:
             self.__horaires = None
 
-
-        self.__pmr = True if "Accessible aux personnes à mobilité réduite" in data else False
-
+        self.__pmr = (
+            True if "Accessible aux personnes à mobilité réduite" in data else False
+        )
 
         try:
             self.__acces = data.split("<h2>Moyen d'accès</h2>")[1]
-            
+
             if "Pratique" in self.__acces:
-                self.__acces = self.__acces.split("<h2>Pratique</h2>")[0].replace("<p>", "").replace("</p>", "").strip().replace("BUS ligne", "Bus :").replace(" et ", ", ").split("<br/>")
+                self.__acces = (
+                    self.__acces.split("<h2>Pratique</h2>")[0]
+                    .replace("<p>", "")
+                    .replace("</p>", "")
+                    .strip()
+                    .replace("BUS ligne", "Bus :")
+                    .replace(" et ", ", ")
+                    .split("<br/>")
+                )
             elif "Paiements possibles" in self.__acces:
-                self.__acces = self.__acces.split("<h2>Paiements possibles</h2>")[0].replace("<p>", "").replace("</p>", "").strip().replace("BUS ligne", "Bus :").replace(" et ", ", ").split("<br/>")
-        except:
+                self.__acces = (
+                    self.__acces.split("<h2>Paiements possibles</h2>")[0]
+                    .replace("<p>", "")
+                    .replace("</p>", "")
+                    .strip()
+                    .replace("BUS ligne", "Bus :")
+                    .replace(" et ", ", ")
+                    .split("<br/>")
+                )
+        except Exception:
             self.__acces = None
 
         if self.__acces and self.__acces[0] == "---":
@@ -151,41 +191,51 @@ class Infos:
 
         if self.__acces:
             self.__acces = [a.strip() for a in self.__acces if a]
-            
+
         if self.__acces == []:
             self.__acces = None
 
-
         try:
-            self.__pratique = data.split("<h2>Pratique</h2>")[1].split("<h2>Paiements possibles</h2>")[0]
-        except:
+            self.__pratique = data.split("<h2>Pratique</h2>")[1].split(
+                "<h2>Paiements possibles</h2>"
+            )[0]
+        except Exception:
             self.__pratique = None
 
-
         try:
-            self.__paiements = data.split("<h2>Paiements possibles</h2>")[1].replace("especes", "Espèces").split("</p>")[0].split("<br/>")[0:2]
-        except:
+            self.__paiements = (
+                data.split("<h2>Paiements possibles</h2>")[1]
+                .replace("especes", "Espèces")
+                .split("</p>")[0]
+                .split("<br/>")[0:2]
+            )
+        except Exception:
             self.__paiements = []
 
         try:
-            self.__paiements[0] = self.__paiements[0].split("'/>")[1].split("<br/>")[0].strip()
-        except:
+            self.__paiements[0] = (
+                self.__paiements[0].split("'/>")[1].split("<br/>")[0].strip()
+            )
+        except Exception:
             pass
 
         try:
-            self.__paiements[1] = self.__paiements[1].split("'/>")[1].split("<br/>")[0].strip()
-        except:
+            self.__paiements[1] = (
+                self.__paiements[1].split("'/>")[1].split("<br/>")[0].strip()
+            )
+        except Exception:
             pass
 
-        if self.__paiements and (self.__paiements[1] == "" or self.__paiements[1] == " "):
+        if self.__paiements and (
+            self.__paiements[1] == "" or self.__paiements[1] == " "
+        ):
             self.__paiements = [self.__paiements[0]]
 
         if self.__paiements:
             self.__paiements = [p.strip() for p in self.__paiements if p]
-            
+
         if self.__paiements == []:
             self.__paiements = None
-
 
     @property
     def data(self) -> str:
@@ -210,7 +260,6 @@ class Infos:
     @property
     def paiements(self) -> list:
         return self.__paiements
-
 
     def __repr__(self) -> str:
         return f"<Infos horaires={self.horaires} pmr={self.pmr} acces={self.acces} pratique={self.pratique} paiements={self.paiements}>"

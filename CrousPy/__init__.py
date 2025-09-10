@@ -1,6 +1,6 @@
 __title__ = "CrousPy"
 __author__ = "CROUStillant Développement"
-__version__ = "2.0.4"
+__version__ = "2.0.5"
 __description__ = "A Python wrapper for the CROUS API."
 
 __headers__ = {
@@ -34,4 +34,40 @@ from .entity.category import Category
 from .entity.dish import Dish
 
 # Exceptions
-from .exceptions import *
+from .exceptions import (
+    CrousAPIError,
+    RedirectError,
+    BadRequestError,
+    ForbiddenError,
+    RegionIntrouvable,
+    RestaurantIntrouvable,
+    MenuIntrouvable,
+    ConflictWithServer,
+    TeapotError,
+    TooEarlyError,
+    InternalServerError,
+)
+
+__all__ = [
+    "Crous",
+    "Region",
+    "Regions",
+    "RU",
+    "RUs",
+    "Menu",
+    "Menus",
+    "Meal",
+    "Category",
+    "Dish",
+    "CrousAPIError",
+    "RedirectError",
+    "BadRequestError",
+    "ForbiddenError",
+    "RegionIntrouvable",
+    "RestaurantIntrouvable",
+    "MenuIntrouvable",
+    "ConflictWithServer",
+    "TeapotError",
+    "TooEarlyError",
+    "InternalServerError",
+]

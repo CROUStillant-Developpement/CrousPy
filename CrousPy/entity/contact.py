@@ -4,7 +4,7 @@ import html
 class Contact:
     """
     Représente les informations de contact d'un RU.
-    
+
     :param data: Les données de contact.
     :type data: str
 
@@ -23,14 +23,24 @@ class Contact:
     :ivar email: L'adresse email.
     :vartype email: str
     """
+
     def __init__(self, data: str) -> None:
         self.__data = data
 
-        self.__name = html.unescape(self.__data.split("<h2>")[1].split("</h2>")[0]).lstrip()
-        self.__address = self.__data.split("<p>")[1].split("<br/>")[0].replace("</p>", "")
+        self.__name = html.unescape(
+            self.__data.split("<h2>")[1].split("</h2>")[0]
+        ).lstrip()
+        self.__address = (
+            self.__data.split("<p>")[1].split("<br/>")[0].replace("</p>", "")
+        )
 
         try:
-            self.__phone = self.__data.split("<b>T&#233;l&#233;phone</b> : ")[1].split("<br/>")[0].replace(" ", ".").replace("</p>", "")
+            self.__phone = (
+                self.__data.split("<b>T&#233;l&#233;phone</b> : ")[1]
+                .split("<br/>")[0]
+                .replace(" ", ".")
+                .replace("</p>", "")
+            )
             if "pas.de.telephone" in self.__phone.lower():
                 raise Exception("Pas de téléphone")
 
@@ -49,14 +59,13 @@ class Contact:
 
             if len(self.__phone) > 14:
                 self.__phone = self.__phone[0:14]
-        except:
+        except Exception:
             self.__phone = None
 
         try:
             self.__email = self.__data.split("<b>E-mail</b> : ")[1].split("</p>")[0]
-        except:
+        except Exception:
             self.__email = None
-
 
     @property
     def data(self) -> str:
@@ -72,12 +81,11 @@ class Contact:
 
     @property
     def phone(self) -> str:
-        return self.__phone
+        return self.__phone.strip() if self.__phone.strip() else None
 
     @property
     def email(self) -> str:
-        return self.__email
-
+        return self.__email.strip() if self.__email.strip() else None
 
     def __repr__(self) -> str:
         return f"<Contact name={self.name} address={self.address} phone={self.phone} email={self.email}>"
