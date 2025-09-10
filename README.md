@@ -35,17 +35,7 @@ cd CrousPy
 
 3. Créer un environnement virtuel
 ```bash	
-python -m venv venv
-```
-
-4. Activer l'environnement virtuel
-```bash	
-source venv/bin/activate
-```
-
-5. Installer les dépendances
-```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 # 📄 • Utilisation
