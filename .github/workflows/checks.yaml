@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  check:
+    name: Verify build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Run lint
+        run: uv run ruff check .
+
+      - name: Try building package
+        run: uv build
