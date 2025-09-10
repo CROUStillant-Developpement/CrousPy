@@ -17,14 +17,7 @@ CROUStillant est un projet qui a pour but de fournir les menus des restaurants u
 
 # 🚀 • Présentation
 
-Ce dépôt contient le code source d'une librairie interne de CROUStillant en Python qui permet d’interagir avec l'API du CROUS.
-
-# ⚙️ • Installation
-
-La librairie n'est pas encore disponible sur PyPi, il faut donc l'installer manuellement en exécutant la commande suivante :
-```
-pip install git+https://github.com/CROUStillant-Developpement/CrousPy
-```
+Ce dépôt contient le code source d'une librairie interne de CROUStillant en Python qui permet d’interagir avec l'API du CROUS. Si vous souhaitez récupérer les menus des restaurants universitaires en France et en Outre-Mer, utilisez notre API publique [api.croustillant.menu](https://api.croustillant.menu).
 
 # 💻 • Développement
 
