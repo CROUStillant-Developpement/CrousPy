@@ -1,6 +1,6 @@
 [project]
 name = "CrousPy"
-version = "2.0.5"
+version = "2.0.6"
 description = "A Python wrapper for CROUS restaurant menus API."
 authors = [{ name = "CROUStillant Développement" }]
 readme = "README.md"
