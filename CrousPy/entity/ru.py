@@ -267,11 +267,11 @@ class RU:
 
     @property
     def title(self) -> str:
-        return self.__data.get("title")
+        return self.__data.get("title").strip()
 
     @property
     def type(self) -> str:
-        return self.__data.get("type")
+        return self.__data.get("type").strip()
 
     @property
     def virtual_visit_url(self) -> str:
@@ -283,7 +283,7 @@ class RU:
 
     @property
     def zone(self) -> str:
-        return self.__data.get("zone").lower().capitalize()
+        return self.__data.get("zone").strip().lower().capitalize()
 
     def __repr__(self) -> str:
         return f"<RU title={self.title} id={self.id} zone={self.zone}>"
