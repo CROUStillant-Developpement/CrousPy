@@ -9,7 +9,7 @@ requires-python = ">=3.13"
 dependencies = [
     "aiohttp>=3.13.1",
     "async-timeout>=5.0.1",
-    "pytz>=2025.2",
+    "pytz>=2026.2",
 ]
 
 [project.urls]
