@@ -267,11 +267,11 @@ class RU:
 
     @property
     def title(self) -> str:
-        return self.__data.get("title").strip()
+        return self.__data.get("title").strip().capitalize()
 
     @property
     def type(self) -> str:
-        return self.__data.get("type").strip()
+        return self.__data.get("type").strip().capitalize()
 
     @property
     def virtual_visit_url(self) -> str:
