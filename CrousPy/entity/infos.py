@@ -1,5 +1,4 @@
 import re
-
 from typing import TypedDict
 
 
@@ -123,11 +122,9 @@ class Infos:
                 self.__horaires[1].split("<h2>Pratique</h2>")[0].strip()
             )
 
-        if self.__horaires[0].startswith("- "):
-            self.__horaires[0] = self.__horaires[0][2:]
+        self.__horaires[0] = self.__horaires[0].removeprefix("- ")
 
-        if self.__horaires[0].endswith(":"):
-            self.__horaires[0] = self.__horaires[0][:-1]
+        self.__horaires[0] = self.__horaires[0].removesuffix(":")
 
         if self.__horaires[1] == "":
             self.__horaires = [self.__horaires[0], []]
@@ -156,9 +153,7 @@ class Infos:
         if self.__horaires == []:
             self.__horaires = None
 
-        self.__pmr = (
-            True if "Accessible aux personnes à mobilité réduite" in data else False
-        )
+        self.__pmr = "Accessible aux personnes à mobilité réduite" in data
 
         try:
             self.__acces = data.split("<h2>Moyen d'accès</h2>")[1]

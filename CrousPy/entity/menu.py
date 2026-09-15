@@ -1,8 +1,9 @@
+from datetime import datetime
+from typing import TypedDict
+
 import pytz
 
 from .meal import Meal
-from typing import TypedDict
-from datetime import datetime
 
 
 class MenuData(TypedDict):

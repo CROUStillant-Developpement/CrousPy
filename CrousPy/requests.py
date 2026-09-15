@@ -1,23 +1,24 @@
-from . import __headers__, __baseURL__
+from aiohttp import ClientSession, ContentTypeError
+
+from . import __baseURL__, __headers__
+from .entity.collection.menuCollection import Menus
 from .entity.collection.regionCollection import Regions
 from .entity.collection.ruCollection import RUs
-from .entity.collection.menuCollection import Menus
+from .entity.menu import Menu
 from .entity.region import Region
 from .entity.ru import RU
-from .entity.menu import Menu
 from .exceptions import (
-    CrousAPIError,
-    RedirectError,
     BadRequestError,
+    ConflictWithServer,
+    CrousAPIError,
     ForbiddenError,
+    InternalServerError,
+    MenuIntrouvable,
+    RedirectError,
     RegionIntrouvable,
     RestaurantIntrouvable,
-    MenuIntrouvable,
-    ConflictWithServer,
     TooEarlyError,
-    InternalServerError,
 )
-from aiohttp import ClientSession, ContentTypeError
 
 
 class Crous:

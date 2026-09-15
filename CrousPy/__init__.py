@@ -12,62 +12,62 @@ __baseURL__ = "https://webservices-v2.crous-mobile.fr/ws/v1"
 
 from .client import Crous
 
-# Regions
-from .entity.region import Region
-from .entity.collection.regionCollection import Regions
-
-# Restaurants Universitaires
-from .entity.ru import RU
-from .entity.collection.ruCollection import RUs
-
-# Menus
-from .entity.menu import Menu
-from .entity.collection.menuCollection import Menus
-
-# Meal
-from .entity.meal import Meal
-
 # Categories
 from .entity.category import Category
+from .entity.collection.menuCollection import Menus
+from .entity.collection.regionCollection import Regions
+from .entity.collection.ruCollection import RUs
 
 # Dishes
 from .entity.dish import Dish
 
+# Meal
+from .entity.meal import Meal
+
+# Menus
+from .entity.menu import Menu
+
+# Regions
+from .entity.region import Region
+
+# Restaurants Universitaires
+from .entity.ru import RU
+
 # Exceptions
 from .exceptions import (
-    CrousAPIError,
-    RedirectError,
     BadRequestError,
+    ConflictWithServer,
+    CrousAPIError,
     ForbiddenError,
+    InternalServerError,
+    MenuIntrouvable,
+    RedirectError,
     RegionIntrouvable,
     RestaurantIntrouvable,
-    MenuIntrouvable,
-    ConflictWithServer,
     TeapotError,
     TooEarlyError,
-    InternalServerError,
 )
 
 __all__ = [
-    "Crous",
-    "Region",
-    "Regions",
     "RU",
-    "RUs",
-    "Menu",
-    "Menus",
-    "Meal",
-    "Category",
-    "Dish",
-    "CrousAPIError",
-    "RedirectError",
     "BadRequestError",
-    "ForbiddenError",
-    "RegionIntrouvable",
-    "RestaurantIntrouvable",
-    "MenuIntrouvable",
+    "Category",
     "ConflictWithServer",
+    "Crous",
+    "CrousAPIError",
+    "Dish",
+    "ForbiddenError",
+    "InternalServerError",
+    "Meal",
+    "Menu",
+    "MenuIntrouvable",
+    "Menus",
+    "RUs",
+    "RedirectError",
+    "Region",
+    "RegionIntrouvable",
+    "Regions",
+    "RestaurantIntrouvable",
     "TeapotError",
     "TooEarlyError",
-    "InternalServerError",
 ]

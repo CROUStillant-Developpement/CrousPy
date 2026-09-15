@@ -1,5 +1,6 @@
+from typing import Literal, TypedDict
+
 from .category import Category
-from typing import TypedDict, Literal
 
 
 class MealData(TypedDict):

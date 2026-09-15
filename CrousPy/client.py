@@ -1,16 +1,15 @@
-import asyncio
 
+from aiohttp import ClientSession
+from async_timeout import timeout
+
+from .entity.collection.menuCollection import Menus
 from .entity.collection.regionCollection import Regions
 from .entity.collection.ruCollection import RUs
-from .entity.collection.menuCollection import Menus
+from .entity.menu import Menu as ObjMenu
 from .entity.region import Region as ObjRegion
 from .entity.ru import RU as ObjRU
-from .entity.menu import Menu as ObjMenu
-from .requests import Crous as CrousRequests
 from .exceptions import CrousAPIError
-from async_timeout import timeout
-from aiohttp import ClientSession
-
+from .requests import Crous as CrousRequests
 
 timeout_time = 30
 
@@ -64,14 +63,14 @@ class Region:
         try:
             async with timeout(timeout_time):
                 return await self.client.getRegions()
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise CrousAPIError
 
     async def getById(self, regionID: int) -> ObjRegion:
         try:
             async with timeout(timeout_time):
                 return await self.client.getRegionByID(regionID)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise CrousAPIError
 
 
@@ -96,14 +95,14 @@ class RU:
         try:
             async with timeout(timeout_time):
                 return await self.client.getRUs(regionID)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise CrousAPIError
 
     async def getById(self, regionID: int, rid: int) -> ObjRU:
         try:
             async with timeout(timeout_time):
                 return await self.client.getRuByID(regionID, rid)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise CrousAPIError
 
 
@@ -128,12 +127,12 @@ class Menu:
         try:
             async with timeout(timeout_time):
                 return await self.client.getMenus(regionID, rid)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise CrousAPIError
 
     async def getByDate(self, regionID: int, rid: str, date: str) -> ObjMenu:
         try:
             async with timeout(timeout_time):
                 return await self.client.getMenuByDate(regionID, rid, date)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise CrousAPIError

@@ -1,6 +1,6 @@
-import pytz
-
 from datetime import datetime
+
+import pytz
 
 
 class CrousAPIError(Exception):
