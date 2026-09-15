@@ -44,11 +44,9 @@ class Contact:
             if "pas.de.telephone" in self.__phone.lower():
                 raise Exception("Pas de téléphone")
 
-            if self.__phone.startswith("."):
-                self.__phone = self.__phone[1:]
+            self.__phone = self.__phone.removeprefix(".")
 
-            if self.__phone.endswith(".o"):
-                self.__phone = self.__phone[:-2]
+            self.__phone = self.__phone.removesuffix(".o")
 
             if "/" in self.__phone:
                 self.__phone = self.__phone.split("/")[0]

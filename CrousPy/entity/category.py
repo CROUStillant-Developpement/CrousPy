@@ -1,5 +1,6 @@
-from .dish import Dish
 from typing import TypedDict
+
+from .dish import Dish
 
 
 class CategoryData(TypedDict):

@@ -24,3 +24,11 @@ build-backend = "hatchling.build"
 dev = [
     "ruff>=0.15.16",
 ]
+
+[tool.ruff.lint]
+ignore = [
+    "N999",   # package/module names (CrousPy, menuCollection, ...) are the published public API
+    "BLE001", # broad except-Exception is intentional: tolerating malformed/unexpected scraped HTML
+    "S110",   # try-except-pass, same reason as BLE001
+    "TRY002", # raising a plain Exception is intentional in a couple of scraper edge cases
+]

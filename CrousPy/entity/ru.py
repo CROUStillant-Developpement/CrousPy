@@ -1,6 +1,7 @@
-from .infos import Infos
-from .contact import Contact
 from typing import TypedDict
+
+from .contact import Contact
+from .infos import Infos
 
 
 class RUData(TypedDict):
@@ -199,7 +200,7 @@ class RU:
 
     @property
     def open(self) -> bool:
-        return True if self.__data.get("closing") == "0" else False
+        return self.__data.get("closing") == "0"
 
     @property
     def contact(self) -> Contact:
