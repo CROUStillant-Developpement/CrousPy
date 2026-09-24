@@ -1,6 +1,6 @@
 __title__ = "CrousPy"
 __author__ = "CROUStillant Développement"
-__version__ = "2.0.7"
+__version__ = "2.1.0"
 __description__ = "A Python wrapper for the CROUS API."
 
 __headers__ = {
@@ -8,18 +8,25 @@ __headers__ = {
 }
 
 __baseURL__ = "https://webservices-v2.crous-mobile.fr/ws/v1"
+__feedIndexURL__ = "http://webservices-v2.crous-mobile.fr/feed/feeds.json"
 
 
 from .client import Crous
 
 # Categories
 from .entity.category import Category
+from .entity.collection.feedCollection import Feeds
+from .entity.collection.feedRuCollection import FeedRUs
 from .entity.collection.menuCollection import Menus
 from .entity.collection.regionCollection import Regions
 from .entity.collection.ruCollection import RUs
 
 # Dishes
 from .entity.dish import Dish
+
+# Feeds
+from .entity.feed import Feed
+from .entity.feedRu import FeedRU
 
 # Meal
 from .entity.meal import Meal
@@ -38,6 +45,7 @@ from .exceptions import (
     BadRequestError,
     ConflictWithServer,
     CrousAPIError,
+    FluxIntrouvable,
     ForbiddenError,
     InternalServerError,
     MenuIntrouvable,
@@ -48,6 +56,9 @@ from .exceptions import (
     TooEarlyError,
 )
 
+# Utilitaires
+from .utils import formatTitle
+
 __all__ = [
     "RU",
     "BadRequestError",
@@ -56,6 +67,11 @@ __all__ = [
     "Crous",
     "CrousAPIError",
     "Dish",
+    "Feed",
+    "FeedRU",
+    "FeedRUs",
+    "Feeds",
+    "FluxIntrouvable",
     "ForbiddenError",
     "InternalServerError",
     "Meal",
@@ -70,4 +86,5 @@ __all__ = [
     "RestaurantIntrouvable",
     "TeapotError",
     "TooEarlyError",
+    "formatTitle",
 ]
