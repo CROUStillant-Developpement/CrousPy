@@ -1,5 +1,6 @@
 from typing import TypedDict
 
+from ..utils import formatTitle
 from .contact import Contact
 from .infos import Infos
 
@@ -124,6 +125,9 @@ class RU:
 
     :ivar crous_and_go_url: L'URL Crous&Go.
     :vartype crous_and_go_url: str
+
+    :ivar feedId: L'ID du RU dans les flux régionaux (déduit de ``xmlid``).
+    :vartype feedId: int | None
 
     :ivar id: L'ID du RU.
     :vartype id: int
@@ -268,7 +272,7 @@ class RU:
 
     @property
     def title(self) -> str:
-        return self.__data.get("title").strip().capitalize()
+        return formatTitle(self.__data.get("title"))
 
     @property
     def type(self) -> str:
@@ -281,6 +285,13 @@ class RU:
     @property
     def xmlid(self) -> str:
         return self.__data.get("xmlid")
+
+    @property
+    def feedId(self) -> int | None:
+        xmlid = self.__data.get("xmlid") or ""
+        if xmlid[:1] == "r" and xmlid[1:].isdigit():
+            return int(xmlid[1:])
+        return None
 
     @property
     def zone(self) -> str:

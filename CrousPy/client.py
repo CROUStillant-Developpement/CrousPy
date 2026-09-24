@@ -1,7 +1,8 @@
-
 from aiohttp import ClientSession
 from async_timeout import timeout
 
+from .entity.collection.feedCollection import Feeds
+from .entity.collection.feedRuCollection import FeedRUs
 from .entity.collection.menuCollection import Menus
 from .entity.collection.regionCollection import Regions
 from .entity.collection.ruCollection import RUs
@@ -30,6 +31,12 @@ class Crous:
     :ivar menu: Les menus.
     :vartype menu: Menu
 
+    :ivar feed: Les flux régionaux.
+    :vartype feed: Feed
+
+    :ivar image: Les images.
+    :vartype image: Image
+
     :raises CrousAPIError: Une erreur est survenue lors de la requête.
     :raises asyncio.TimeoutError: La requête a mis trop de temps à répondre.
     """
@@ -40,6 +47,8 @@ class Crous:
         self.region = Region(self.client)
         self.ru = RU(self.client)
         self.menu = Menu(self.client)
+        self.feed = Feed(self.client)
+        self.image = Image(self.client)
 
 
 class Region:
@@ -134,5 +143,64 @@ class Menu:
         try:
             async with timeout(timeout_time):
                 return await self.client.getMenuByDate(regionID, rid, date)
+        except TimeoutError:
+            raise CrousAPIError
+
+
+class Feed:
+    """
+    Représente les flux régionaux.
+
+    Chaque flux contient tous les restaurants d'une région et leurs menus. Les flux
+    sont régénérés toutes les 15 minutes par le CROUS, même sans changement.
+
+    :param client: Le client Crous.
+    :type client: CrousRequests
+
+    :method get: Récupère la liste des flux régionaux.
+    :method getByURL: Récupère un flux régional.
+
+    :raises CrousAPIError: Une erreur est survenue lors de la requête.
+    :raises asyncio.TimeoutError: La requête a mis trop de temps à répondre.
+    """
+
+    def __init__(self, client: CrousRequests):
+        self.client = client
+
+    async def get(self) -> Feeds:
+        try:
+            async with timeout(timeout_time):
+                return await self.client.getFeeds()
+        except TimeoutError:
+            raise CrousAPIError
+
+    async def getByURL(self, url: str) -> FeedRUs:
+        try:
+            async with timeout(timeout_time):
+                return await self.client.getFeed(url)
+        except TimeoutError:
+            raise CrousAPIError
+
+
+class Image:
+    """
+    Représente les images des restaurants.
+
+    :param client: Le client Crous.
+    :type client: CrousRequests
+
+    :method get: Récupère le contenu brut d'une image.
+
+    :raises CrousAPIError: Une erreur est survenue lors de la requête.
+    :raises asyncio.TimeoutError: La requête a mis trop de temps à répondre.
+    """
+
+    def __init__(self, client: CrousRequests):
+        self.client = client
+
+    async def get(self, url: str) -> bytes:
+        try:
+            async with timeout(timeout_time):
+                return await self.client.getImage(url)
         except TimeoutError:
             raise CrousAPIError

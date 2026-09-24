@@ -51,6 +51,11 @@ cd CrousPy
 uv sync
 ```
 
+4. Lancer les tests (`tests/test_feed_live.py` interroge les vrais services du CROUS)
+```bash
+uv run pytest
+```
+
 # 📄 • Utilisation
 
 ```python
@@ -89,6 +94,21 @@ async def main():
     menu = await client.menu.getByDate(regionID=23, rid=1, date="2026-04-28")
     print(menu)
 
+    # Récupérer la liste des flux régionaux (tous les restaurants d'une région et
+    # leurs menus en une seule requête, régénérés toutes les 15 minutes par le CROUS)
+    feeds = await client.feed.get()
+    print(feeds)
+
+    # Récupérer un flux régional
+    # Attention : les IDs des restaurants des flux diffèrent de ceux de l'API,
+    # la correspondance se fait avec `RU.feedId` (dérivé de `RU.xmlid`, ex : "r104" -> 104)
+    # et les menus des flux n'ont pas d'ID (`Menu.id` vaut `None`).
+    restaurants = await client.feed.getByURL(feeds[0].url)
+    print(restaurants)
+
+    # Récupérer le contenu brut d'une image
+    image = await client.image.get("https://example.com/image.jpg")
+
     await session.close()
 
 
@@ -107,6 +127,7 @@ if __name__ == "__main__":
 | `RegionIntrouvable` | 404 | Région introuvable |
 | `RestaurantIntrouvable` | 404 | Restaurant introuvable |
 | `MenuIntrouvable` | 404 | Menu introuvable |
+| `FluxIntrouvable` | 404 | Flux introuvable |
 | `ConflictWithServer` | 409 | Conflit avec le serveur |
 | `TeapotError` | 418 | Je suis une théière |
 | `TooEarlyError` | 425 | Requête trop précoce |

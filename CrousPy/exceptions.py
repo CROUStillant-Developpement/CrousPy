@@ -52,6 +52,13 @@ class MenuIntrouvable(CrousAPIError):
         super().__init__(self.error)
 
 
+class FluxIntrouvable(CrousAPIError):
+    def __init__(self):
+        self.error = "Ce flux est introuvable !"
+        self.code = 404
+        super().__init__(self.error)
+
+
 class ConflictWithServer(CrousAPIError):
     def __init__(self):
         self.error = "Conflit avec le serveur !"
